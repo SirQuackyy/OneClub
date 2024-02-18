@@ -4,8 +4,11 @@ import { Badge } from 'react-bootstrap';
 import ClubFilter from '../clubFilter.js';
 import ClubSignUp from '../clubSignUp.js';
 import Navbar from '../navbar';
+import { useNavigate } from 'react-router-dom';
 
 const Select = () => {
+    const navigate = useNavigate();
+
     const [query, setQuery] = useState("");
     const [clubs, setClubs] = useState([]);
     const [filter, setFilter] = useState("None");
@@ -30,6 +33,39 @@ const Select = () => {
     };
     getAllInformation()
   }, []);
+
+  const addClubs = async () => {
+    console.log(selected);
+    let newClubs = {
+        clubs: selected,
+        officer: JSON.parse(localStorage.getItem('officer')),
+    }
+    const res = await fetch(`http://localhost:5050/users/${localStorage.getItem('schoolID')}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newClubs),
+    })
+    .catch(error => {
+        window.alert(error);
+        return;
+    });
+
+    const response  = await fetch(`http://localhost:5050/users/u/${localStorage.getItem('schoolID')}`)
+        if(!response){
+            const message = `An error occured: ${response.statusText}`;
+            window.alert(message);
+            return;
+        }
+    let resp = await response.json();
+    localStorage.setItem("schoolID", resp.schoolID);
+    localStorage.setItem('name', resp.name);
+    localStorage.setItem('email', resp.email);
+    localStorage.setItem('clubs', JSON.stringify(resp.clubs));
+    localStorage.setItem('officer', JSON.stringify(resp.officer));
+    navigate('/clubslist');
+  }
     
     return(
         <div>
@@ -57,7 +93,7 @@ const Select = () => {
             </li>
             <div>
                 <br></br>
-                <ClubSignUp  selection = {selected}>Sign Up </ClubSignUp>
+                <ClubSignUp  selection = {selected} addClubs = {addClubs}>Sign Up </ClubSignUp>
             </div>
             </div>
             )}

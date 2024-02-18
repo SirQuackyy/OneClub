@@ -2,12 +2,17 @@ import React, { useState } from "react"
 import { Modal, Button } from "react-bootstrap";
 
 
-export default function ClubSignUp({selection}){
+export default function ClubSignUp({selection, addClubs}){
     const [show, setShow] = useState(false);
     const sel = [...selection]
 
     const hideModal = () => setShow(false);
     const showModal = () => setShow(true);
+
+    function handleSubmit() {
+        hideModal();
+        addClubs();
+    }
 
     return (
         <div className= "text-center text-3xl"  >
@@ -25,7 +30,7 @@ export default function ClubSignUp({selection}){
                         }
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant = "primary" onClick = {hideModal}>
+                    <Button variant = "primary" onClick = {handleSubmit}>
                         Confirm
                     </Button>
                     <Button variant="secondary" onClick={hideModal}>

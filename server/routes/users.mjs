@@ -59,9 +59,9 @@ router.get("/account/:email/:password/:length", async (req, res) => {
     }
 });
 
-router.get("/:schoolID", async (req, res) => {
+router.get("/u/:schoolID", async (req, res) => {
     let collection = await db.collection("users");
-    const query = { schoolID: req.body.schoolID };
+    const query = { schoolID: req.params.schoolID };
     let result = await collection.findOne(query);
 
     if(!result) res.send("Not found").status(404);
@@ -70,7 +70,7 @@ router.get("/:schoolID", async (req, res) => {
 
 router.get("/clubs/get/:name", async (req, res) => {
   let collection = await db.collection("clubs");
-  const query = { schoolID: req.body.name };
+  const query = { name: req.params.name };
   let result = await collection.findOne(query);
 
   if(!result) res.send("Not found").status(404);
@@ -79,7 +79,7 @@ router.get("/clubs/get/:name", async (req, res) => {
 
 router.patch("/:schoolID", async (req, res) => {
     let collection = await db.collection("users");
-    const query = { schoolID: req.body.schoolID };
+    const query = { schoolID: req.params.schoolID };
     let result = await collection.findOne(query);
 
     if(!result){
@@ -109,7 +109,7 @@ router.get("/clubs/all", async (req, res) => {
 
 router.patch("/clubs/:name", async (req, res) => {
     let collection = await db.collection("clubs");
-    const query = { schoolID: req.body.name };
+    const query = { name: req.params.name };
     let result = await collection.findOne(query);
 
     if(!result){

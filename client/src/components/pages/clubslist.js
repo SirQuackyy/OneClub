@@ -45,23 +45,9 @@ const [user, setUser] = useState(
     }
 );
 
-useEffect(() => {
-    const getUser = async() => {
-        const response  = await fetch(`http://localhost:5050/users/${localStorage.getItem('schoolID')}`)
-        if(!response){
-            const message = `An error occured: ${response.statusText}`;
-            window.alert(message);
-            return;
-        }
-        let res = await response.json();
-        setUser(res);
-    }
-    getUser();
-}, [])
-
-const goDash = (name) => {
-    console.log("HERE")
-    navigate('/dashboard', { club: name })
+const goDash = (nam) => {
+    console.log(nam);
+    navigate('/dashboard', { state: {name: nam} })
 }
 
     return(

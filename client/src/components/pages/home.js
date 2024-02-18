@@ -44,7 +44,7 @@ const Home = () => {
     return(
         <div>
         <div className="text-center">
-            <div className=" pb-[25%] pt-[15%] bg-gradient-to-br from-cyan-500 to-blue-500" >
+            <div className=" pb-[35%] pt-[15%] bg-gradient-to-br from-cyan-500 to-blue-500" >
                 <h1 className="text-zinc-200 text-8xl ">
                     OneClub
                 </h1>

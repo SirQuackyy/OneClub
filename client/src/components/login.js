@@ -34,7 +34,7 @@ export default function Login(props) {
             localStorage.setItem('officer', JSON.stringify(res.officer));
             localStorage.setItem('token', res.token);
             console.log(localStorage.getItem('name') + " " + localStorage.getItem('email') + " " + localStorage.getItem('clubs') + " " + localStorage.getItem('token'));
-            navigate("/");
+            navigate("/clubslist");
         } else {
             window.alert(res.reason);
         }
